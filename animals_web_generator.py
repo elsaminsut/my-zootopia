@@ -5,25 +5,46 @@ def load_data(file_path):
     with open(file_path, "r") as handle:
         return json.load(handle)
 
-animals_data = load_data('animals_data.json')
 
-output = ""
-for animal in animals_data:
+def serialize_animal(animal_obj):
+    output = ""
     output += '<li class="cards__item">'
-    if animal.get("name"):
-        output += f"<div class='card__title'>{animal.get("name")}</div>\n"
+    if animal_obj.get("name"):
+        output += f"<div class='card__title'>{animal_obj.get("name")}</div>\n"
     output += "<p class='card__text'>"
-    if animal["characteristics"].get("diet"):
-        output += f"<strong>Diet:</strong> {animal["characteristics"].get("diet")}<br/>\n"
-    if animal.get("locations"):
-        output += f"<strong>Location:</strong> {animal.get("locations")[0]}<br/>\n"
-    if animal["characteristics"].get("type"):
-        output += f"<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n\n"
+    if animal_obj["characteristics"].get("diet"):
+        output += f"<strong>Diet:</strong> {animal_obj["characteristics"].get("diet")}<br/>\n"
+    if animal_obj.get("locations"):
+        output += f"<strong>Location:</strong> {animal_obj.get("locations")[0]}<br/>\n"
+    if animal_obj["characteristics"].get("type"):
+        output += f"<strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n\n"
     output += '</p>'
     output += '</li>'
+    return output
 
-html_file = open("animals_template.html", "r", encoding="utf-8")
-source_code = html_file.read()
-source_code_with_animals = source_code.replace("__REPLACE_ANIMALS_INFO__", output)
-with open("animals.html", "w") as f:
-  f.write(source_code_with_animals)
+
+def read_html(filename):
+    html_file = open(filename, "r", encoding="utf-8")
+    return html_file.read()
+
+
+def write_to_html(filename, html_text):
+    with open(filename, "w") as f:
+      f.write(html_text)
+
+
+def main():
+    animals_data = load_data('animals_data.json')
+    source_code = read_html("animals_template.html")
+
+    output = ""
+    for animal in animals_data:
+        output += serialize_animal(animal)
+
+    source_code_with_animals = source_code.replace("__REPLACE_ANIMALS_INFO__", output)
+
+    write_to_html("animals.html", source_code_with_animals)
+
+
+if __name__ == "__main__":
+    main()
