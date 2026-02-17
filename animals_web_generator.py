@@ -11,13 +11,15 @@ output = ""
 for animal in animals_data:
     output += '<li class="cards__item">'
     if animal.get("name"):
-        output += f"Name: {animal.get("name")}<br/>\n"
+        output += f"<div class='card__title'>{animal.get("name")}</div>\n"
+    output += "<p class='card__text'>"
     if animal["characteristics"].get("diet"):
-        output += f"Diet: {animal["characteristics"].get("diet")}<br/>\n"
+        output += f"<strong>Diet:</strong> {animal["characteristics"].get("diet")}<br/>\n"
     if animal.get("locations"):
-        output += f"Location: {animal.get("locations")[0]}<br/>\n"
+        output += f"<strong>Location:</strong> {animal.get("locations")[0]}<br/>\n"
     if animal["characteristics"].get("type"):
-        output += f"Type: {animal["characteristics"]["type"]}<br/>\n\n"
+        output += f"<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n\n"
+    output += '</p>'
     output += '</li>'
 
 html_file = open("animals_template.html", "r", encoding="utf-8")
