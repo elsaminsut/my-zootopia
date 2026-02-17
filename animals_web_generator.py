@@ -13,16 +13,18 @@ def serialize_animal(animal_obj):
         output += f"<div class='card__title'>{animal_obj.get("name")}</div>\n"
     if animal_obj["taxonomy"].get("scientific_name"):
         output += f"<div class='card__subtitle'>{animal_obj["taxonomy"].get("scientific_name")}</div>\n"
-    output += "<p class='card__text'>"
+    output += "<div class='card__text'>"
+    output += "<ul>"
     if animal_obj["characteristics"].get("diet"):
-        output += f"<strong>Diet:</strong> {animal_obj["characteristics"].get("diet")}<br/>\n"
+        output += f"<li class='info__item'><strong>Diet:</strong> {animal_obj["characteristics"].get("diet")}</li>\n"
     if animal_obj.get("locations"):
-        output += f"<strong>Location:</strong> {animal_obj.get("locations")[0]}<br/>\n"
+        output += f"<li class='info__item'><strong>Location:</strong> {animal_obj.get("locations")[0]}</li>\n"
     if animal_obj["characteristics"].get("type"):
-        output += f"<strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n"
+        output += f"<li class='info__item'><strong>Type:</strong> {animal_obj["characteristics"]["type"]}</li>\n"
     if animal_obj["characteristics"].get("temperament"):
-        output += f"<strong>Temperament:</strong> {animal_obj["characteristics"]["temperament"]}<br/>\n"
-    output += '</p>'
+        output += f"<li class='info__item'><strong>Temperament:</strong> {animal_obj["characteristics"]["temperament"]}</li>\n"
+    output += "</ul>"
+    output += '</div>'
     output += '</li>'
     return output
 
