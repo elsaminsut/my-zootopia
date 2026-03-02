@@ -2,7 +2,7 @@ import json
 
 def load_data(file_path):
     """ Loads a JSON file """
-    with open(file_path, "r") as handle:
+    with open(file_path, "r", encoding="utf-8") as handle:
         return json.load(handle)
 
 
@@ -29,19 +29,19 @@ def serialize_animal(animal_obj):
     output += '<li class="cards__item">'
     if animal_obj.get("name"):
         output += f"<div class='card__title'>{animal_obj.get("name")}</div>\n"
-    if animal_obj["taxonomy"].get("scientific_name"):
+    if animal_obj.get("taxonomy") and animal_obj["taxonomy"].get("scientific_name"):
         output += f"<div class='card__subtitle'>{animal_obj["taxonomy"].get("scientific_name")}</div>\n"
     output += "<div class='card__text'>"
     output += "<ul>"
-    if animal_obj["characteristics"].get("diet"):
+    if animal_obj.get("characteristics") and animal_obj["characteristics"].get("diet"):
         output += f"<li class='info__item'><strong>Diet:</strong> {animal_obj["characteristics"].get("diet")}</li>\n"
     if animal_obj.get("locations"):
         output += f"<li class='info__item'><strong>Location:</strong> {animal_obj.get("locations")[0]}</li>\n"
-    if animal_obj["characteristics"].get("type"):
+    if animal_obj.get("characteristics") and animal_obj["characteristics"].get("type"):
         output += f"<li class='info__item'><strong>Type:</strong> {animal_obj["characteristics"]["type"]}</li>\n"
-    if animal_obj["characteristics"].get("temperament"):
+    if animal_obj.get("characteristics") and animal_obj["characteristics"].get("temperament"):
         output += f"<li class='info__item'><strong>Temperament:</strong> {animal_obj["characteristics"]["temperament"]}</li>\n"
-    if animal_obj["characteristics"].get("skin_type"):
+    if animal_obj.get("characteristics") and animal_obj["characteristics"].get("skin_type"):
         output += f"<li class='info__item'><strong>Skin type:</strong> {animal_obj["characteristics"]["skin_type"]}</li>\n"
     output += "</ul>"
     output += '</div>'
@@ -55,8 +55,8 @@ def read_html(filename):
 
 
 def write_to_html(filename, html_text):
-    with open(filename, "w") as f:
-      f.write(html_text)
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(html_text)
 
 
 def main():
